@@ -1,16 +1,17 @@
 package test;
 
+import java.util.LinkedList;
+
 public class Agent {
 	public Agent() {}
 	
-//	Man man1 = new Man();
-//	Man man2 = new Man();
-//	Man man3 = new Man();
-//	
-//	BigWolf bigWolf = new BigWolf();
-//	SmallWolf sw1 = new SmallWolf();
-//	SmallWolf sw2 = new SmallWolf();
-//	
-	// Create a list to save who's on which side of the river.
+ /*
+  * The implementation should look like this:
+  * a search tree the consists of node
+  * the node should contain: 
+  */
+	
+	LinkedList<World> frontier = new LinkedList<>();
+	LinkedList<World> expanded = new LinkedList<>();
 	
 }

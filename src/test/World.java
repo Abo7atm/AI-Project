@@ -1,9 +1,5 @@
 package test;
 
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 public class World {
 	
 	char[] westSide = new char[6];
@@ -122,13 +118,6 @@ public class World {
 			}
 		}
 		return result;
-	}
-	
-	public boolean isValidMove(/*state? indices of travelers?*/) {
-		boolean[] currentState = state;
-		// where is the boat?
-		boolean boatLocation = currentState[6];
-		return true; // just to remove the red line under the method signature
 	}
 	
 	// the following methods are traveling methods
