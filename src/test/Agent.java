@@ -19,5 +19,7 @@ public class Agent {
 	
 	World initialState = new World();
 	
+	frontier.add(initialState);
+	
 	}
 }

@@ -101,6 +101,7 @@ public class World {
 		return result;
 	}
 
+	// remaining, check if expanded state doesn't violate wolf <= man constraint.
 	public boolean isValidExpansion(World w, int choice) {
 		/*
 		 * possible moves at any given state: 1) Man 2) Man, Man 3) Man, Small wolf 4)
@@ -215,13 +216,107 @@ public class World {
 
 		return true;
 	}
-
-	public LinkedList<World> expand() {
-		LinkedList<World> result = new LinkedList<>();
-
+	
+	public World expandMethod(World w, int choice) {
+		
+		/*
+		 * choices: 1) Man 2) Man, Man 3) Man, Small wolf
+		 * 4) Man, Big wolf 5) Big wolf 6) Big wolf, Small wolf
+		 */
+		
+		World result = w;
+		
+		switch (choice) {
+		case 1:
+			int manLocation = 0;
+			for(int i=0; i<3; i++) {
+				if(result.state[i] == result.state[6]) {
+					manLocation = i;
+				}
+			}
+			result.state[manLocation] = !result.state[manLocation];
+			result.state[6] = !result.state[6];
+			break;
+			
+		case 2:
+			int manOneLocation=0, manTwoLocation=0;
+			for (int i=0; i<3; i++) {
+				if(result.state[i] == result.state[6]) {
+					manOneLocation = manTwoLocation;
+					manTwoLocation = i;
+				}
+			}
+			result.state[manOneLocation] = !result.state[manOneLocation];
+			result.state[manTwoLocation] = !result.state[manTwoLocation];
+			result.state[6] = !result.state[6];
+			break;
+			
+		case 3:
+			manLocation = 0;
+			int wolfLocation = 0;
+			for (int i=0; i<3; i++) {
+				if(result.state[i] == result.state[6]) {
+					manLocation = i;
+				}			
+			}
+			
+			for(int i =4; i<6; i++) {
+				if(result.state[i] == result.state[6]) {
+					wolfLocation = i;
+				}
+			}
+			result.state[manLocation] = !result.state[manLocation];
+			result.state[wolfLocation] = !result.state[wolfLocation];
+			result.state[6] = !result.state[6];
+			
+			break;
+		case 4:
+			manLocation = 0;
+			for(int i=0; i<3; i++) {
+				if (result.state[i] == result.state[6]) {
+					manLocation = i;
+				}
+			}
+			result.state[manLocation] = !result.state[manLocation];
+			result.state[3] = !result.state[3];
+			result.state[6] = !result.state[6];
+			
+			break;
+		case 5:
+			result.state[4] = !result.state[4];
+			result.state[6] = !result.state[6];
+			
+			break;
+		case 6:
+			wolfLocation = 0;
+			for(int i=4; i<6; i++) {
+				if(result.state[i] == result.state[6]) {
+					wolfLocation = i;
+				}
+			}
+			result.state[wolfLocation] = !result.state[wolfLocation];
+			result.state[4] = !result.state[4];
+			result.state[6] = !result.state[6];
+			
+			break;
+			
+		}
+		
 		return result;
 	}
-
+	
+	
+	public LinkedList<World> expand() {
+		boolean[] validExpansions = new boolean[6];
+		LinkedList<World> result = new LinkedList<>();
+		
+		for(int i=0; i<7; i++) {
+			validExpansions[i] = isValidExpansion(this, i);
+		}
+		
+		
+		return result;
+	}
 	// the following methods are traveling methods
 
 }
