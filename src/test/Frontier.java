@@ -28,6 +28,10 @@ public class Frontier {
 		}
 	}
 	
+	public World peek() {
+		return head.getData();
+	}
+	
 	public World serve() {
 		World result = head.getData();
 		head = head.getNext();

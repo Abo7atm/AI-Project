@@ -14,18 +14,27 @@ public class Agent {
 		// instead of using
 		// already existing libraries, due to some idiot asking the professor if we
 		// should implement it or not.
-
-		LinkedList<World> frontier = new LinkedList<>();
-		LinkedList<World> expanded = new LinkedList<>();
-
-		World initialState = new World();
-
-		frontier.add(initialState);
-		int i = 0;
-		while (!frontier.peekLast().goalTest()) {
-			frontier.addAll(frontier.peek().expand());
-			expanded.add(frontier.getFirst());
+		
+		Frontier frontier = new Frontier();
+		Expanded expanded = new Expanded();
+		
+		World e = new World(); // initial state
+		frontier.add(e);
+		boolean goalFound = false;
+		
+		while(!goalFound) {
+			World temp = frontier.peek();
+			Frontier t = new Frontier();
+			if(temp.goalTest()) {
+				goalFound = true;
+			}
+			else {
+				expanded.add(frontier.serve());
+				t = temp.expand();
+				System.out.println(t.getLength());
+				frontier.add(t.peek());
+			}
 		}
-
+		
 	}
 }

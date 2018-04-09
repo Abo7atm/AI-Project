@@ -389,8 +389,8 @@ public class World {
 		return result;
 	}
 
-	public LinkedList<World> expand() {
-		LinkedList<World> result = new LinkedList<>();
+	public Frontier expand() {
+		Frontier result = new Frontier();
 
 		for (int i = 1; i < 7; i++) {
 			
