@@ -10,12 +10,11 @@ public class Frontier {
 		current = head = null;
 	}
 	
-	public boolean add(World e) {
+	public void add(World e) {
 		Node x = new Node(e);
 		if (head==null) {
 			head = x;
 			length++;
-			return true;
 		}
 		else {
 			current = head;
@@ -24,8 +23,12 @@ public class Frontier {
 			}
 			current.setNext(x);
 			length++;
-			return true;
 		}
+	}
+	
+	public void add(Frontier f) {
+		this.add(f.peek());
+		length+=f.getLength();
 	}
 	
 	public World peek() {

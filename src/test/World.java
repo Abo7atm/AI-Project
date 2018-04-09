@@ -1,7 +1,5 @@
 package test;
 
-import java.util.LinkedList;
-
 public class World {
 
 	boolean[] state;
@@ -272,6 +270,7 @@ public class World {
 			// return false;
 			// }
 			if (state[3] != state[6]) { // does the same this as the commented section above
+
 				return false;
 			}
 			
@@ -282,7 +281,6 @@ public class World {
 				nbOfWolvesSS++;
 				nbOfWolvesFS--;
 			}
-			
 			break;
 
 		case 6: // move big wolf, small wolf
@@ -313,7 +311,12 @@ public class World {
 		// check if the resulting state disrupts the wolf cannot out-number men
 		// condition.
 //		System.out.println("Choice number ("+choice+") is " + (nbOfMenStartngSide < nbOfWolvesSS || nbOfMenFinishingSide < nbOfWolvesFS));
-		if (nbOfMenStartngSide < nbOfWolvesSS || nbOfMenFinishingSide < nbOfWolvesFS) {
+//		if (nbOfMenStartngSide < nbOfWolvesSS || nbOfMenFinishingSide < nbOfWolvesFS) {
+//			return false;
+//		}
+		
+		if((nbOfMenStartngSide>0 && nbOfWolvesSS>nbOfMenStartngSide)
+				|| (nbOfMenFinishingSide>0 && nbOfWolvesFS>nbOfMenFinishingSide)) {
 			return false;
 		}
 
@@ -412,7 +415,7 @@ public class World {
 		Frontier result = new Frontier();
 
 		for (int i = 1; i < 7; i++) {
-//			System.out.println("Expansion choice (" + i + ") is " + isValidExpansion(i));
+			System.out.println("Expansion choice (" + i + ") is " + isValidExpansion(i));
 			if(isValidExpansion(i)) {
 				result.add(expandMethod(i));
 			}

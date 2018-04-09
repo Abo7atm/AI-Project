@@ -21,12 +21,12 @@ public class Agent {
 		World e = new World(); // initial state
 		frontier.add(e);
 		e.displayState();
-		boolean goalFound = false;
-		Frontier f = new Frontier();
-		f = e.expand();
-		System.out.println(f.getLength());
-
 		
+		frontier.add(e.expand());
+//		System.out.println(e.expand().getLength());
+//		System.out.println(frontier.getLength());
+		
+		boolean goalFound = false;
 //		while(!goalFound) {
 //			World temp = frontier.peek();
 //			Frontier t = new Frontier();
