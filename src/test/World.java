@@ -105,7 +105,7 @@ public class World {
 	// does this method need to take w as parameter, or should it work on the world
 	// that calls it?
 	// method needs cleaning, there are many redundant for loops.
-	public boolean isValidExpansion(World w, int choice) {
+	public boolean isValidExpansion(int choice) {
 		/*
 		 * possible moves at any given state: 1) Man 2) Man, Man 3) Man, Small wolf 4)
 		 * Man, Big wolf 5) Big wolf 6) Big wolf, Small
@@ -116,13 +116,13 @@ public class World {
 		int nbOfWolvesFS = 0;
 		for (int i = 0; i < 6; i++) {
 			if (i < 3) {
-				if (w.state[i]) {
+				if (state[i]) {
 					nbOfMenStartngSide++;
 				} else {
 					nbOfMenFinishingSide++;
 				}
 			} else {
-				if (w.state[i]) {
+				if (state[i]) {
 					nbOfWolvesSS++;
 				} else {
 					nbOfWolvesFS++;
@@ -399,7 +399,7 @@ public class World {
 		LinkedList<World> result = new LinkedList<>();
 
 		for (int i = 0; i < 7; i++) {
-			validExpansions[i] = isValidExpansion(this, i);
+			validExpansions[i] = isValidExpansion(i);
 		}
 
 		return result;
