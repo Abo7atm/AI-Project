@@ -10,9 +10,10 @@ public class Frontier {
 		current = head = null;
 	}
 	
-	public boolean add(Node e) {
+	public boolean add(World e) {
+		Node x = new Node(e);
 		if (head==null) {
-			head = e;
+			head = x;
 			length++;
 			return true;
 		}
@@ -21,7 +22,7 @@ public class Frontier {
 			while(current.getNext() != null) {
 				current = current.getNext();
 			}
-			current.setNext(e);
+			current.setNext(x);
 			length++;
 			return true;
 		}
