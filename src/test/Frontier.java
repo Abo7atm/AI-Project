@@ -43,4 +43,8 @@ public class Frontier {
 		return length;
 	}
 	
+	public Node getHead() {
+		return head;
+	}
+	
 }

@@ -20,21 +20,25 @@ public class Agent {
 		
 		World e = new World(); // initial state
 		frontier.add(e);
+		e.displayState();
 		boolean goalFound = false;
+		Frontier f = new Frontier();
+		f = e.expand();
+		System.out.println(f.getLength());
+
 		
-		while(!goalFound) {
-			World temp = frontier.peek();
-			Frontier t = new Frontier();
-			if(temp.goalTest()) {
-				goalFound = true;
-			}
-			else {
-				expanded.add(frontier.serve());
-				t = temp.expand();
-				System.out.println(t.getLength());
-				frontier.add(t.peek());
-			}
-		}
+//		while(!goalFound) {
+//			World temp = frontier.peek();
+//			Frontier t = new Frontier();
+//			if(temp.goalTest()) {
+//				goalFound = true;
+//			}
+//			else {
+//				expanded.add(frontier.serve());
+//				t = temp.expand();
+//				frontier.add(t.peek());
+//			}
+//		}
 		
 	}
 }
