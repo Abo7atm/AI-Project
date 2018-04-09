@@ -8,12 +8,11 @@ public class World {
 	LinkedList<World> path;
 	int cost;
 
-	/*
-	 * initial state = {true,true,true,true,true,true,true} Indices of state[] are
-	 * as follows: 0, 1, 2 = Human 3 = Big Wolf 4, 5 = Small Wolves 6 = Boat
-	 */
 
-	 /*We can represent the state with an array of boolean, and since we only need
+	/* initial state = {true,true,true,true,true,true,true} Indices of state[] are
+	as follows: 0, 1, 2 = Human 3 = Big Wolf 4, 5 = Small Wolves 6 = Boat*/
+
+	/* We can represent the state with an array of boolean, and since we only need
 	 to represent one side of the river only
 	 then the initial state would be currentState = {true, true, true, true, true,
 	 true, true}
@@ -394,6 +393,7 @@ public class World {
 		LinkedList<World> result = new LinkedList<>();
 
 		for (int i = 1; i < 7; i++) {
+			
 			if(isValidExpansion(i)) {
 				result.add(expandMethod(this, i));
 			}
