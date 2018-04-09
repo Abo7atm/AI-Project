@@ -101,10 +101,6 @@ public class World {
 		return result;
 	}
 
-	// remaining, check if expanded state doesn't violate wolf <= man constraint.
-	// does this method need to take w as parameter, or should it work on the world
-	// that calls it?
-	// method needs cleaning, there are many redundant for loops.
 	public boolean isValidExpansion(int choice) {
 		/*
 		 * possible moves at any given state: 1) Man 2) Man, Man 3) Man, Small wolf 4)
@@ -395,15 +391,15 @@ public class World {
 	}
 
 	public LinkedList<World> expand() {
-		boolean[] validExpansions = new boolean[6];
 		LinkedList<World> result = new LinkedList<>();
 
-		for (int i = 0; i < 7; i++) {
-			validExpansions[i] = isValidExpansion(i);
+		for (int i = 1; i < 7; i++) {
+			if(isValidExpansion(i)) {
+				result.add(expandMethod(this, i));
+			}
 		}
 
 		return result;
 	}
-	// the following methods are traveling methods
 
 }
