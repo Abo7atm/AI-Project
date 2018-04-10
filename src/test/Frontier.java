@@ -50,4 +50,12 @@ public class Frontier {
 		return head;
 	}
 	
+	public void displayAll() {
+		current = head;
+		while(current != null) {
+			current.getData().displayState();
+			System.out.println("------------------");
+			current = current.getNext();
+		}
+	}
 }

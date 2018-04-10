@@ -389,7 +389,7 @@ public class World {
 
 			break;
 		case 5:
-			result.state[4] = !result.state[4];
+			result.state[3] = !result.state[3];
 			result.state[6] = !result.state[6];
 
 			break;
@@ -415,8 +415,9 @@ public class World {
 		Frontier result = new Frontier();
 
 		for (int i = 1; i < 7; i++) {
-			System.out.println("Expansion choice (" + i + ") is " + isValidExpansion(i));
+//			System.out.println("Expansion choice (" + i + ") is " + isValidExpansion(i));
 			if(isValidExpansion(i)) {
+				expandMethod(i).displayState();
 				result.add(expandMethod(i));
 			}
 		}
