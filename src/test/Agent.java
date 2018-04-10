@@ -11,30 +11,88 @@ public class Agent {
 
 		
 		Frontier frontier = new Frontier();
-//		Expanded expanded = new Expanded();
-		
-		World e = new World(); // initial state
-		frontier.add(e);
-		Frontier fudge = e.expand();
-		frontier.add(fudge);
-		frontier.displayAll();
+		Explored explored = new Explored();
 
+		World initialState = new World(); // initial state
+		frontier.add(initialState); // add initial state to frontier;
+
+		/*
+		 * I see the process as follows:
+		 * 1) initial state created,
+		 * 2) check if state has been expanded
+		 * 3-a) if has not been explored, add to frontier
+		 * 3-b) if has been explored, skip or delete or whatever.
+		 * 4) pop from frontier
+		 * 5) check if state is goal
+		 * 6-a) if goal, return solution
+		 * 6-b) if not goal, expand then go to 2). 
+		 */
+		int i = 0;
+		boolean goalFound = false;
+		World temp, goalState = null;
+		Frontier expanded = new Frontier();
+		Node pointer;
 		
-		
-		
-//		boolean goalFound = false;
-//		while(!goalFound) {
-//			World temp = frontier.peek();
-//			Frontier t = new Frontier();
-//			if(temp.goalTest()) {
-//				goalFound = true;
-//			}
-//			else {
-//				expanded.add(frontier.serve());
-//				t = temp.expand();
-//				frontier.add(t.peek());
-//			}
-//		}
-		
+		while (!goalFound) {
+			temp = frontier.serve();
+			if(temp.goalTest()) {
+				goalFound = true;
+				goalState = temp;
+				break;
+			}
+			expanded = temp.expand();
+			explored.add(temp);
+			pointer = expanded.getHead();
+			while(pointer != null) {
+				System.out.println(i);
+				if (!explored.hasBeenExplored(pointer)) {
+					frontier.add(pointer.getData());
+				}
+				pointer = pointer.getNext();
+			}
+			i++;
+		}
+				
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

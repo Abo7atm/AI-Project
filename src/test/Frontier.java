@@ -29,13 +29,12 @@ public class Frontier {
 	}
 
 	public void add(Frontier f) {
-		Node pointer = new Node(f.peek());
-
+		
+		Node pointer = f.getHead();
 		while (pointer != null) {
-
 			pointer = new Node(f.serve());
 			add(pointer.getData());
-			pointer = pointer.getNext();
+			pointer = f.getHead();
 		}
 	}
 
@@ -44,6 +43,7 @@ public class Frontier {
 	}
 
 	public World serve() {
+		
 		World result = head.getData();
 		head = head.getNext();
 		length--;
@@ -65,7 +65,7 @@ public class Frontier {
 			current = current.getNext();
 		}
 	}
-
+	
 	public boolean isEmpty() {
 		return head == null;
 	}

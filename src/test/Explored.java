@@ -1,10 +1,10 @@
 package test;
 
-public class Expanded {
+public class Explored {
 	private int length;
 	private Node head, current;
 
-	public Expanded() {
+	public Explored() {
 		length = 0;
 		current = head = null;
 	}
@@ -24,6 +24,24 @@ public class Expanded {
 			length++;
 			return true;
 		}
+	}
+	
+	public boolean hasBeenExplored(Node n) {
+		current = head;
+		boolean result = false;
+		
+		while(current != null) {
+			for(int i=0; i<7; i++) {
+				if(current.getData().state[i] == n.getData().state[i]) {
+					result = true;
+					break;
+				}
+			}
+			current = current.getNext();
+		}
+		
+		result = false;
+		return result;
 	}
 	
 	public int getLength() {

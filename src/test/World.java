@@ -6,18 +6,20 @@ public class World {
 	Frontier path;
 	int cost;
 
+	/*
+	 * initial state = {true,true,true,true,true,true,true} Indices of state[] are
+	 * as follows: 0, 1, 2 = Human 3 = Big Wolf 4, 5 = Small Wolves 6 = Boat
+	 */
 
-	/* initial state = {true,true,true,true,true,true,true} Indices of state[] are
-	as follows: 0, 1, 2 = Human 3 = Big Wolf 4, 5 = Small Wolves 6 = Boat*/
-
-	/* We can represent the state with an array of boolean, and since we only need
-	 to represent one side of the river only
-	 then the initial state would be currentState = {true, true, true, true, true,
-	 true, true}
-	 that is, indices 0-2 are for humans, 3 is for big wolf, (4,5) for small
-	 wolves, and the last index is for the boat
-
-	 there should be another class where the algorithm is implemented.*/
+	/*
+	 * We can represent the state with an array of boolean, and since we only need
+	 * to represent one side of the river only then the initial state would be
+	 * currentState = {true, true, true, true, true, true, true} that is, indices
+	 * 0-2 are for humans, 3 is for big wolf, (4,5) for small wolves, and the last
+	 * index is for the boat
+	 * 
+	 * there should be another class where the algorithm is implemented.
+	 */
 
 	public World() {
 		// Initial state
@@ -31,23 +33,20 @@ public class World {
 	public World(World w) {
 		state = new boolean[7];
 		this.cost = w.cost; // copying cost variable
-		for (int i=0; i<7; i++) { // copying state variable
+		for (int i = 0; i < 7; i++) { // copying state variable
 			this.state[i] = w.state[i];
 		}
 		if (w.path.isEmpty()) {
 			this.path = new Frontier();
-		}
-		else {
+		} else {
 			Node current = w.path.getHead();
 			while (current != null) { // copying path variable
 				this.path.add(current.getData());
 				current = current.getNext();
 			}
 		}
-
-		
 	}
-	
+
 	public World(boolean[] state, Frontier path) {
 		this.state = state;
 		this.path = path;
@@ -128,7 +127,7 @@ public class World {
 		int nbOfMenFinishingSide = 0; // the number of men on the finishing side after travel;
 		int nbOfWolvesSS = 0;
 		int nbOfWolvesFS = 0;
-		
+
 		for (int i = 0; i < 6; i++) {
 			if (i < 3) {
 				if (state[i]) {
@@ -151,11 +150,11 @@ public class World {
 			boolean manBoatSameSide = false;
 			for (int i = 0; i < 3; i++) {
 				if (state[i] == state[6]) {
-					
+
 					manBoatSameSide = true;
 				}
 			}
-			
+
 			if (!manBoatSameSide) {
 				return false;
 			}
@@ -233,11 +232,11 @@ public class World {
 				nbOfWolvesSS++;
 				nbOfWolvesFS--;
 			}
-			
+
 			break;
 
 		case 4: // move man, big wolf
-			
+
 			manBoatSameSide = false;
 			manWolfBoatSameSide = false;
 			for (int i = 0; i < 3; i++) {
@@ -251,7 +250,7 @@ public class World {
 					manWolfBoatSameSide = true;
 				}
 			}
-//			System.out.println("##########Now checking case 4 " + (state[6]));
+			// System.out.println("##########Now checking case 4 " + (state[6]));
 			if (!manWolfBoatSameSide) {
 				return false;
 			}
@@ -267,7 +266,7 @@ public class World {
 				nbOfWolvesSS++;
 				nbOfWolvesFS--;
 			}
-			
+
 			break;
 
 		case 5: // move big wolf
@@ -282,7 +281,7 @@ public class World {
 
 				return false;
 			}
-			
+
 			if (state[6]) {
 				nbOfWolvesSS--;
 				nbOfWolvesFS++;
@@ -304,28 +303,30 @@ public class World {
 			if (!wolfWolfBoatSameSide) {
 				return false;
 			}
-			
+
 			if (state[6]) {
-				nbOfWolvesSS-=2;
-				nbOfWolvesFS+=2;
+				nbOfWolvesSS -= 2;
+				nbOfWolvesFS += 2;
 			} else {
-				nbOfWolvesSS+=2;
-				nbOfWolvesFS-=2;
+				nbOfWolvesSS += 2;
+				nbOfWolvesFS -= 2;
 			}
-			
+
 			break;
 
 		}
 
 		// check if the resulting state disrupts the wolf cannot out-number men
 		// condition.
-//		System.out.println("Choice number ("+choice+") is " + (nbOfMenStartngSide < nbOfWolvesSS || nbOfMenFinishingSide < nbOfWolvesFS));
-//		if (nbOfMenStartngSide < nbOfWolvesSS || nbOfMenFinishingSide < nbOfWolvesFS) {
-//			return false;
-//		}
-		
-		if((nbOfMenStartngSide>0 && nbOfWolvesSS>nbOfMenStartngSide)
-				|| (nbOfMenFinishingSide>0 && nbOfWolvesFS>nbOfMenFinishingSide)) {
+		// System.out.println("Choice number ("+choice+") is " + (nbOfMenStartngSide <
+		// nbOfWolvesSS || nbOfMenFinishingSide < nbOfWolvesFS));
+		// if (nbOfMenStartngSide < nbOfWolvesSS || nbOfMenFinishingSide < nbOfWolvesFS)
+		// {
+		// return false;
+		// }
+
+		if ((nbOfMenStartngSide > 0 && nbOfWolvesSS > nbOfMenStartngSide)
+				|| (nbOfMenFinishingSide > 0 && nbOfWolvesFS > nbOfMenFinishingSide)) {
 			return false;
 		}
 
@@ -341,7 +342,7 @@ public class World {
 
 		World result = new World(this);
 		switch (choice) {
-		
+
 		case 1:
 			int manLocation = 0;
 			for (int i = 0; i < 3; i++) {
@@ -369,7 +370,7 @@ public class World {
 		case 3:
 			manLocation = 0;
 			int wolfLocation = 0;
-			for (int i=0; i<3; i++) {
+			for (int i = 0; i < 3; i++) {
 				if (result.state[i] == result.state[6]) {
 					manLocation = i;
 				}
@@ -421,16 +422,16 @@ public class World {
 	}
 
 	public Frontier expand() {
-		
+
 		Frontier result = new Frontier();
 
-		for (int i=1; i<7; i++) {
-			if(isValidExpansion(i)) {
+		for (int i = 1; i < 7; i++) {
+			if (isValidExpansion(i)) {
 				// expandMethod() is working fine
 				result.add(expandMethod(i));
 			}
 		}
-		
+
 		return result;
 	}
 
