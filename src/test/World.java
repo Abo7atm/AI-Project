@@ -30,8 +30,8 @@ public class World {
 
 	public World(World w) {
 		state = new boolean[7];
-		this.cost = w.cost; // cost
-		for (int i=0; i<7; i++) { // state
+		this.cost = w.cost; // copying cost variable
+		for (int i=0; i<7; i++) { // copying state variable
 			this.state[i] = w.state[i];
 		}
 		if (w.path.isEmpty()) {
@@ -39,7 +39,7 @@ public class World {
 		}
 		else {
 			Node current = w.path.getHead();
-			while (current != null) { // path
+			while (current != null) { // copying path variable
 				this.path.add(current.getData());
 				current = current.getNext();
 			}
@@ -426,6 +426,7 @@ public class World {
 
 		for (int i=1; i<7; i++) {
 			if(isValidExpansion(i)) {
+				// expandMethod() is working fine
 				result.add(expandMethod(i));
 			}
 		}

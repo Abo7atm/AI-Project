@@ -1,24 +1,25 @@
 package test;
 
 public class Frontier {
+
+	// FIFO LinkedList
+
 	private int length;
 	private Node head, current;
-	
-	
+
 	public Frontier() {
 		length = 0;
 		current = head = null;
 	}
-	
+
 	public void add(World e) {
 		Node x = new Node(new World(e));
-		if (head==null) {
+		if (head == null) {
 			head = x;
 			length++;
-		}
-		else {
+		} else {
 			current = head;
-			while(current.getNext() != null) {
+			while (current.getNext() != null) {
 				current = current.getNext();
 			}
 			current.setNext(x);
@@ -26,45 +27,47 @@ public class Frontier {
 			length++;
 		}
 	}
-	
+
 	public void add(Frontier f) {
 		Node pointer = new Node(f.peek());
-		while(pointer != null) {
+
+		while (pointer != null) {
+
 			pointer = new Node(f.serve());
 			add(pointer.getData());
 			pointer = pointer.getNext();
 		}
 	}
-	
+
 	public World peek() {
 		return head.getData();
 	}
-	
+
 	public World serve() {
 		World result = head.getData();
 		head = head.getNext();
 		length--;
 		return result;
 	}
-	
+
 	public int getLength() {
 		return length;
 	}
-	
+
 	public Node getHead() {
 		return head;
 	}
-	
+
 	public void displayAll() {
 		current = head;
-		while(current != null) {
-//			current.getData().displayState();
+		while (current != null) {
+			current.getData().displayState();
 			current = current.getNext();
 		}
 	}
 
 	public boolean isEmpty() {
-		return head==null;
+		return head == null;
 	}
 
 }

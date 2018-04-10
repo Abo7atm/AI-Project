@@ -16,8 +16,8 @@ public class Agent {
 		World e = new World(); // initial state
 		frontier.add(e);
 		Frontier fudge = e.expand();
-		fudge.displayAll();
 		frontier.add(fudge);
+		frontier.displayAll();
 
 		
 		
