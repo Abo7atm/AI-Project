@@ -31,13 +31,21 @@ public class World {
 	public World(World w) {
 		state = new boolean[7];
 		this.cost = w.cost; // cost
-		for (int i=0; i<6; i++) { // state
+		for (int i=0; i<7; i++) { // state
 			this.state[i] = w.state[i];
 		}
-		Node current = w.path.getHead();
-		while (current != null) { // path
-			this.path.add(current.getData());
+		if (w.path.isEmpty()) {
+			this.path = new Frontier();
 		}
+		else {
+			Node current = w.path.getHead();
+			while (current != null) { // path
+				this.path.add(current.getData());
+				current = current.getNext();
+			}
+		}
+
+		
 	}
 	
 	public World(boolean[] state, Frontier path) {
@@ -94,6 +102,7 @@ public class World {
 			System.out.print("B");
 		}
 		System.out.println("");
+		System.out.println("------------------------------");
 	}
 
 	public boolean goalTest() {
@@ -331,8 +340,8 @@ public class World {
 		 */
 
 		World result = new World(this);
-
 		switch (choice) {
+		
 		case 1:
 			int manLocation = 0;
 			for (int i = 0; i < 3; i++) {
@@ -360,7 +369,7 @@ public class World {
 		case 3:
 			manLocation = 0;
 			int wolfLocation = 0;
-			for (int i = 0; i < 3; i++) {
+			for (int i=0; i<3; i++) {
 				if (result.state[i] == result.state[6]) {
 					manLocation = i;
 				}
@@ -401,7 +410,7 @@ public class World {
 				}
 			}
 			result.state[wolfLocation] = !result.state[wolfLocation];
-			result.state[4] = !result.state[4];
+			result.state[3] = !result.state[3];
 			result.state[6] = !result.state[6];
 
 			break;
@@ -412,16 +421,15 @@ public class World {
 	}
 
 	public Frontier expand() {
+		
 		Frontier result = new Frontier();
 
-		for (int i = 1; i < 7; i++) {
-//			System.out.println("Expansion choice (" + i + ") is " + isValidExpansion(i));
+		for (int i=1; i<7; i++) {
 			if(isValidExpansion(i)) {
-				expandMethod(i).displayState();
 				result.add(expandMethod(i));
 			}
 		}
-
+		
 		return result;
 	}
 

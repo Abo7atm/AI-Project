@@ -11,7 +11,7 @@ public class Frontier {
 	}
 	
 	public void add(World e) {
-		Node x = new Node(e);
+		Node x = new Node(new World(e));
 		if (head==null) {
 			head = x;
 			length++;
@@ -22,13 +22,18 @@ public class Frontier {
 				current = current.getNext();
 			}
 			current.setNext(x);
+			current = current.getNext();
 			length++;
 		}
 	}
 	
 	public void add(Frontier f) {
-		this.add(f.peek());
-		length+=f.getLength();
+		Node pointer = new Node(f.peek());
+		while(pointer != null) {
+			pointer = new Node(f.serve());
+			add(pointer.getData());
+			pointer = pointer.getNext();
+		}
 	}
 	
 	public World peek() {
@@ -53,9 +58,13 @@ public class Frontier {
 	public void displayAll() {
 		current = head;
 		while(current != null) {
-			current.getData().displayState();
-			System.out.println("------------------");
+//			current.getData().displayState();
 			current = current.getNext();
 		}
 	}
+
+	public boolean isEmpty() {
+		return head==null;
+	}
+
 }
