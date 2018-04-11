@@ -70,4 +70,11 @@ public class Frontier {
 		return head == null;
 	}
 
+	public void displayAll2() {
+		current = head;
+		while(current != null) {
+			current.getData().printState();
+			current = current.getNext();
+		}
+	}
 }

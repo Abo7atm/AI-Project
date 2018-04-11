@@ -52,6 +52,14 @@ public class World {
 		this.path = path;
 	}
 
+	public void printState() {
+		System.out.print("{");
+		for (int i = 0; i < 7; i++) {
+			System.out.print(state[i] + " ");
+		}
+		System.out.println("}");
+	}
+
 	public void displayState() {
 
 		/*
@@ -103,6 +111,7 @@ public class World {
 		System.out.println("");
 		System.out.println("------------------------------");
 	}
+	
 
 	public boolean goalTest() {
 		boolean result = true;
@@ -117,6 +126,7 @@ public class World {
 		}
 		return result;
 	}
+	
 
 	public boolean isValidExpansion(int choice) {
 		/*
@@ -332,6 +342,7 @@ public class World {
 
 		return true;
 	}
+	
 
 	public World expandMethod(int choice) {
 
@@ -343,7 +354,7 @@ public class World {
 		World result = new World(this);
 		switch (choice) {
 
-		case 1:
+		case 1: // Man
 			int manLocation = 0;
 			for (int i = 0; i < 3; i++) {
 				if (result.state[i] == result.state[6]) {
@@ -354,7 +365,7 @@ public class World {
 			result.state[6] = !result.state[6];
 			break;
 
-		case 2:
+		case 2: // Man, Man
 			int manOneLocation = 0, manTwoLocation = 0;
 			for (int i = 0; i < 3; i++) {
 				if (result.state[i] == result.state[6]) {
@@ -367,7 +378,7 @@ public class World {
 			result.state[6] = !result.state[6];
 			break;
 
-		case 3:
+		case 3: // Man, Small wolf
 			manLocation = 0;
 			int wolfLocation = 0;
 			for (int i = 0; i < 3; i++) {
@@ -386,7 +397,8 @@ public class World {
 			result.state[6] = !result.state[6];
 
 			break;
-		case 4:
+
+		case 4: // Man, Big Wolf
 			manLocation = 0;
 			for (int i = 0; i < 3; i++) {
 				if (result.state[i] == result.state[6]) {
@@ -398,12 +410,14 @@ public class World {
 			result.state[6] = !result.state[6];
 
 			break;
-		case 5:
+
+		case 5: // Big wolf
 			result.state[3] = !result.state[3];
 			result.state[6] = !result.state[6];
 
 			break;
-		case 6:
+
+		case 6: // Big wolf, Small wolf
 			wolfLocation = 0;
 			for (int i = 4; i < 6; i++) {
 				if (result.state[i] == result.state[6]) {
@@ -420,6 +434,7 @@ public class World {
 
 		return result;
 	}
+	
 
 	public Frontier expand() {
 
@@ -431,7 +446,6 @@ public class World {
 				result.add(expandMethod(i));
 			}
 		}
-
 		return result;
 	}
 

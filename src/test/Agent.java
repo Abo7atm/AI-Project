@@ -1,5 +1,6 @@
 package test;
 
+import java.util.Arrays;
 
 public class Agent {
 	public static void main(String args[]) {
@@ -13,86 +14,74 @@ public class Agent {
 		Frontier frontier = new Frontier();
 		Explored explored = new Explored();
 
-		World initialState = new World(); // initial state
-		frontier.add(initialState); // add initial state to frontier;
-
 		/*
-		 * I see the process as follows:
-		 * 1) initial state created,
-		 * 2) check if state has been expanded
+		 * The process is as follows:
+		 * 1) initial state created
+		 * 2) check if state has been explored
 		 * 3-a) if has not been explored, add to frontier
-		 * 3-b) if has been explored, skip or delete or whatever.
+		 * 3-b) if has been explored, skip or delete or whatever
 		 * 4) pop from frontier
 		 * 5) check if state is goal
 		 * 6-a) if goal, return solution
-		 * 6-b) if not goal, expand then go to 2). 
+		 * 6-b) if not goal, expand
+		 * 7) pop from expand list, go to 2)
 		 */
-		int i = 0;
-		boolean goalFound = false;
-		World temp, goalState = null;
-		Frontier expanded = new Frontier();
-		Node pointer;
 		
-		while (!goalFound) {
+		// ------------------------------------------------
+//		boolean[] one = {true, true, true, true, true };
+//		boolean[] two = {true, true, true, true, true };
+//		System.out.println("The two boolean arrays are equivilant: " + Arrays.equals(one, two));
+		// ------------------------------------------------
+		
+		
+		// initial state
+		World initialState = new World();
+		
+		// add initial state to frontier
+		frontier.add(initialState);
+		
+		// counter for testing
+		int i = 0;
+		
+		// variable to store popped state
+		World temp;
+		
+		// frontier to store expansion
+		Frontier expanded;
+		
+		// variable for iterating through explored list
+		World checker;
+		
+		// for debugging
+		/* there was something here */
+		
+		// where the magic happens
+		while(true) {
+			// popping from frontier
 			temp = frontier.serve();
-			if(temp.goalTest()) {
-				goalFound = true;
-				goalState = temp;
+			
+			// check if popped state is goal
+			if (temp.goalTest()) {
 				break;
 			}
+			
+			// if not goal state expand, then add to explored
 			expanded = temp.expand();
-			explored.add(temp);
-			pointer = expanded.getHead();
-			while(pointer != null) {
-				System.out.println(i);
-				if (!explored.hasBeenExplored(pointer)) {
-					frontier.add(pointer.getData());
-				}
-				pointer = pointer.getNext();
+			
+			// check if haven't been explored
+			if(!explored.hasBeenExplored(temp)) {
+				explored.add(temp);
 			}
-			i++;
-		}
+			
+			// check for explored states before adding to frontier
+			while(!expanded.isEmpty()) {
+				checker = expanded.serve();
+				if(!explored.hasBeenExplored(checker)) {
+					frontier.add(checker);
+				}
+			}
+			explored.displayAll();
+		} // end of while loop
 				
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
