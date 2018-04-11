@@ -35,15 +35,15 @@ public class Explored {
 	}
 	
 	public boolean hasBeenExplored(World w) {
-		Node n = new Node(w);
+		//Node n = new Node(w);
 		current = head;
-		boolean flag = true;
+		boolean flag = false;
 		if(this.isEmpty()) {
 			flag = false;
 		}
 		while(current != null) {
-			if(!Arrays.equals(current.getData().state, n.getData().state)) {
-				flag = false;
+			if(Arrays.equals(current.getData().state, w.state)) {
+				flag = true;
 			}
 			current = current.getNext();
 		}
@@ -66,4 +66,12 @@ public class Explored {
 		return head == null;
 	}
 
+	public void displayAll2() {
+		current = head;
+		while(current != null) {
+			current.getData().printState();
+			current = current.getNext();
+		}
+	}
+	
 }

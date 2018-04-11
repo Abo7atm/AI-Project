@@ -226,6 +226,8 @@ public class World {
 						manWolfBoatSameSide = true;
 					}
 				}
+			} else {
+				return false;
 			}
 			if (!manWolfBoatSameSide) {
 				return false;
@@ -439,10 +441,11 @@ public class World {
 	public Frontier expand() {
 
 		Frontier result = new Frontier();
-
 		for (int i = 1; i < 7; i++) {
 			if (isValidExpansion(i)) {
 				// expandMethod() is working fine
+				// edit: not really.
+				// edit2: maybe it is.
 				result.add(expandMethod(i));
 			}
 		}

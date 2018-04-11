@@ -1,6 +1,5 @@
 package test;
 
-import java.util.Arrays;
 
 public class Agent {
 	public static void main(String args[]) {
@@ -40,8 +39,8 @@ public class Agent {
 		// add initial state to frontier
 		frontier.add(initialState);
 		
-		// counter for testing
-		int i = 0;
+		// counter for debugging
+		int i=0;
 		
 		// variable to store popped state
 		World temp;
@@ -62,6 +61,7 @@ public class Agent {
 			
 			// check if popped state is goal
 			if (temp.goalTest()) {
+				frontier.add(temp);
 				break;
 			}
 			
@@ -80,8 +80,8 @@ public class Agent {
 					frontier.add(checker);
 				}
 			}
-			explored.displayAll();
+			i++;
 		} // end of while loop
-				
+		temp.path.displayAll();
 	}
 }
