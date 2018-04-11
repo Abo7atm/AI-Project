@@ -77,4 +77,18 @@ public class Frontier {
 			current = current.getNext();
 		}
 	}
+
+	public void displayIndex(int i) {
+		if(i > (length-1)) {
+			System.out.println("Index out of bound");
+		}
+		else {
+			current = head;
+			for (int j=0; j<i; j++) {
+				current = current.getNext();
+			}
+			current.getData().displayState();
+		}
+	}
+
 }

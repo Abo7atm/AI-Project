@@ -5,7 +5,7 @@ public class Agent {
 	public static void main(String args[]) {
 
 		/*
-		 * The implementation should look like this: a search tree the consists of node
+		 * The implementation should look like this: a search graph the consists of node
 		 * the node should contain:
 		 */
 
@@ -26,18 +26,15 @@ public class Agent {
 		 * 7) pop from expand list, go to 2)
 		 */
 		
-		// ------------------------------------------------
-//		boolean[] one = {true, true, true, true, true };
-//		boolean[] two = {true, true, true, true, true };
-//		System.out.println("The two boolean arrays are equivilant: " + Arrays.equals(one, two));
-		// ------------------------------------------------
-		
 		
 		// initial state
 		World initialState = new World();
 		
 		// add initial state to frontier
 		frontier.add(initialState);
+		
+		// space measurement, max number of node if frontier
+		int spaceMeasurement = 0;
 		
 		// counter for debugging
 		int i=0;
@@ -53,9 +50,14 @@ public class Agent {
 		
 		// for debugging
 		/* there was something here */
+//		long startTime = System.nanoTime();
+		long startTime = System.currentTimeMillis();
 		
 		// where the magic happens
 		while(true) {
+			if(spaceMeasurement < frontier.getLength()) {
+				spaceMeasurement = frontier.getLength();
+			}
 			// popping from frontier
 			temp = frontier.serve();
 			
@@ -81,7 +83,31 @@ public class Agent {
 				}
 			}
 			i++;
+			
 		} // end of while loop
-		temp.path.displayAll();
+		
+//		long endTime   = System.nanoTime();
+		long endTime = System.currentTimeMillis();
+		long totalTime = endTime - startTime;
+		
+		
+		Frontier path = new Frontier();
+		
+		while(temp.getParent() != null) {
+			path.add(temp);
+			temp = temp.getParent();
+		}
+		
+		path.add(temp);
+		
+		System.out.println("Solution: ");
+		
+		for(i=path.getLength()-1; i>=0; i--) {
+			path.displayIndex(i);
+		}
+		
+		System.out.println("Cost: " + (path.getLength()-1));
+		System.out.println("Time measurement: " + (totalTime) + " ms");
+		System.out.println("Space measurement: " + spaceMeasurement + " nodes");
 	}
 }

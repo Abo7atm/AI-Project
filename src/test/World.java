@@ -5,7 +5,8 @@ public class World {
 	boolean[] state;
 	Frontier path;
 	int cost;
-
+	World parent;
+	
 	/*
 	 * initial state = {true,true,true,true,true,true,true} Indices of state[] are
 	 * as follows: 0, 1, 2 = Human 3 = Big Wolf 4, 5 = Small Wolves 6 = Boat
@@ -31,19 +32,11 @@ public class World {
 	}
 
 	public World(World w) {
+		this.parent = w.parent;
 		state = new boolean[7];
 		this.cost = w.cost; // copying cost variable
 		for (int i = 0; i < 7; i++) { // copying state variable
 			this.state[i] = w.state[i];
-		}
-		if (w.path.isEmpty()) {
-			this.path = new Frontier();
-		} else {
-			Node current = w.path.getHead();
-			while (current != null) { // copying path variable
-				this.path.add(current.getData());
-				current = current.getNext();
-			}
 		}
 	}
 
@@ -112,7 +105,6 @@ public class World {
 		System.out.println("------------------------------");
 	}
 	
-
 	public boolean goalTest() {
 		boolean result = true;
 		for (int i = 0; i < 7; i++) {
@@ -127,7 +119,6 @@ public class World {
 		return result;
 	}
 	
-
 	public boolean isValidExpansion(int choice) {
 		/*
 		 * possible moves at any given state: 1) Man 2) Man, Man 3) Man, Small wolf 4)
@@ -345,7 +336,6 @@ public class World {
 		return true;
 	}
 	
-
 	public World expandMethod(int choice) {
 
 		/*
@@ -354,6 +344,7 @@ public class World {
 		 */
 
 		World result = new World(this);
+		result.setParent(this);
 		switch (choice) {
 
 		case 1: // Man
@@ -433,19 +424,28 @@ public class World {
 			break;
 
 		}
-
+		
 		return result;
 	}
 	
-
+	public void setParent(World w) {
+		parent = w;
+	}
+	
+	public World getParent() {
+		return parent;
+	}
+	
 	public Frontier expand() {
 
 		Frontier result = new Frontier();
 		for (int i = 1; i < 7; i++) {
 			if (isValidExpansion(i)) {
+				
 				// expandMethod() is working fine
 				// edit: not really.
 				// edit2: maybe it is.
+
 				result.add(expandMethod(i));
 			}
 		}
